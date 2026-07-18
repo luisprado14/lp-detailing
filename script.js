@@ -2,6 +2,28 @@ const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzBa8VbCz3Pdpad3Wswk
 
 const form = document.getElementById("formMarcacao");
 const campoData = document.getElementById("data");
+// Impede datas passadas
+const hoje = new Date();
+const ano = hoje.getFullYear();
+const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+const dia = String(hoje.getDate()).padStart(2, "0");
+
+campoData.min = `${ano}-${mes}-${dia}`;
+
+// Impede domingos
+campoData.addEventListener("input", function () {
+
+    const data = new Date(this.value);
+
+    if (data.getDay() === 0) {
+
+        alert("Não efetuamos marcações aos domingos.");
+
+        this.value = "";
+
+    }
+
+});
 const campoHora = document.getElementById("hora");
 const botaoTopo = document.getElementById("topo");
 
@@ -46,18 +68,25 @@ form.addEventListener("submit", async function(e){
 
     try{
 
-        const resposta = await fetch(URL_SCRIPT,{
+        const botao = document.querySelector("button[type='submit']");
+
+botao.disabled = true;
+botao.textContent = "A enviar...";
+
+const resposta = await fetch(URL_SCRIPT,{
     method:"POST",
     body:JSON.stringify(dados)
 });
+
+botao.disabled = false;
+botao.textContent = "Marcar Agora";
 
         const resultado = await resposta.json();
 
         if(resultado.sucesso){
 
-            alert("✅ Marcação efetuada com sucesso!");
-
-            form.reset();
+            document.getElementById("mensagem").style.display = "flex";
+form.reset();
 
             campoHora.innerHTML =
             '<option value="">Escolha a Hora</option>';
@@ -125,5 +154,68 @@ async function carregarHoras(){
         console.error(erro);
 
     }
+
+}
+const servico = document.getElementById("servico");
+const veiculo = document.getElementById("veiculo");
+const extra = document.getElementById("extra");
+
+servico.addEventListener("change", atualizarCampos);
+
+function atualizarCampos() {
+
+    const valor = servico.value;
+
+    veiculo.style.display = "block";
+    veiculo.required = true;
+
+    extra.style.display = "none";
+    extra.required = false;
+    extra.innerHTML = "";
+
+    if (valor === "Limpeza de Sofás") {
+
+        veiculo.style.display = "none";
+        veiculo.required = false;
+        veiculo.value = "";
+
+        extra.style.display = "block";
+        extra.required = true;
+
+        extra.innerHTML = `
+            <option value="">N.º de Lugares</option>
+            <option>1 Lugar</option>
+            <option>2 Lugares</option>
+            <option>3 Lugares</option>
+            <option>4 Lugares</option>
+            <option>Chaise Longue</option>
+            <option>Canto</option>
+        `;
+
+    }
+
+    else if (valor === "Limpeza de Colchões") {
+
+        veiculo.style.display = "none";
+        veiculo.required = false;
+        veiculo.value = "";
+
+        extra.style.display = "block";
+        extra.required = true;
+
+        extra.innerHTML = `
+            <option value="">Tamanho do Colchão</option>
+            <option>Solteiro</option>
+            <option>Casal</option>
+            <option>Queen</option>
+            <option>King</option>
+        `;
+
+    }
+
+}
+function fecharMensagem(){
+
+    document.getElementById("mensagem").style.display="none";
 
 }

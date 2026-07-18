@@ -326,135 +326,104 @@ Escolha o serviço pretendido.
 
 <form id="formMarcacao">
 
-<div class="linha">
+    <div class="linha">
 
-<input
-id="nome"
-type="text"
-placeholder="Nome Completo"
-required>
+        <input
+        id="nome"
+        type="text"
+        placeholder="Nome Completo"
+        required>
 
-<input
-id="telefone"
-type="tel"
-placeholder="Telefone"
-required>
+        <input
+        id="telefone"
+        type="tel"
+        placeholder="Telefone"
+        required>
 
-</div>
+    </div>
 
-<div class="linha">
+    <div class="linha">
 
-<input
-id="email"
-type="email"
-placeholder="Email">
+        <input
+        id="email"
+        type="email"
+        placeholder="Email">
 
-<input
-id="localidade"
-type="text"
-placeholder="Localidade">
+        <input
+        id="localidade"
+        type="text"
+        placeholder="Localidade">
 
-</div>
+    </div>
 
-<div class="linha">
+    <div class="linha">
 
-<select id="servico" required>
+        <select id="servico" required>
 
-<option value="">
-Escolha um Serviço
-</option>
+            <option value="">Escolha um Serviço</option>
+            <option>Lavagem Exterior</option>
+            <option>Lavagem Interior</option>
+            <option>Lavagem Completa</option>
+            <option>Lavagem Completa Detalhada</option>
+            <option>Limpeza de Sofás</option>
+            <option>Limpeza de Colchões</option>
 
-<option>
-Lavagem Exterior
-</option>
+        </select>
 
-<option>
-Lavagem Interior
-</option>
+        <select id="veiculo">
 
-<option>
-Lavagem Completa
-</option>
+            <option value="">Tipo de Veículo</option>
+            <option>Citadino</option>
+            <option>SUV</option>
+            <option>Carrinha</option>
+            <option>Comercial</option>
 
-<option>
-Lavagem Completa Detalhada
-</option>
+        </select>
 
-<option>
-Limpeza de Sofás
-</option>
+    </div>
 
-<option>
-Limpeza de Colchões
-</option>
+    <div class="linha">
 
-</select>
+        <select id="extra" style="display:none;">
+            <option value="">Selecione uma opção</option>
+        </select>
 
-<select id="veiculo" required>
+    </div>
 
-<option value="">
-Tipo de Veículo
-</option>
+    <div class="linha">
 
-<option>
-Citadino
-</option>
+        <input
+        type="date"
+        id="data"
+        required>
 
-<option>
-SUV
-</option>
+        <select
+        id="hora"
+        required>
 
-<option>
-Carrinha
-</option>
+            <option value="">Escolha a Hora</option>
+            <option>09:00</option>
+            <option>10:00</option>
+            <option>11:00</option>
+            <option>12:00</option>
+            <option>14:00</option>
+            <option>15:00</option>
+            <option>16:00</option>
+            <option>17:00</option>
+            <option>18:00</option>
 
-<option>
-Comercial
-</option>
+        </select>
 
-</select>
+    </div>
 
-</div>
+    <textarea
+    id="observacoes"
+    rows="6"
+    placeholder="Observações"></textarea>
 
-<div class="linha">
-
-<input
-type="date"
-id="data"
-required>
-
-<select
-id="hora"
-required>
-
-<option value="">
-Escolha a Hora
-</option>
-
-<option>09:00</option>
-<option>10:00</option>
-<option>11:00</option>
-<option>12:00</option>
-<option>14:00</option>
-<option>15:00</option>
-<option>16:00</option>
-<option>17:00</option>
-<option>18:00</option>
-
-</select>
-
-</div>
-
-<textarea
-id="observacoes"
-rows="6"
-placeholder="Observações"></textarea>
-
-<button type="submit">
-
-Marcar Agora
-
-</button>
+    <button type="submit">
+        Marcar Agora
+    </button>
 
 </form>
 
@@ -529,7 +498,26 @@ target="_blank">
 ↑
 
 </button>
+<div id="mensagem" class="mensagem-sucesso">
 
+    <div class="mensagem-box">
+
+        <h2>✅ Marcação Recebida!</h2>
+
+        <p>
+            Obrigado pela sua confiança.<br>
+            A sua marcação foi recebida com sucesso.<br><br>
+
+            Entraremos em contacto consigo muito em breve para confirmar o agendamento.
+        </p>
+
+        <button onclick="fecharMensagem()">
+            Fechar
+        </button>
+
+    </div>
+
+</div>
 <script src="script.js"></script>
 
 </body>
